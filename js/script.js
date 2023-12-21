@@ -1,15 +1,20 @@
+/** @type{HTMLButtonElement} */
 const toggleButton = document.querySelector(".toggle-button");
 const myBlock = document.querySelector(".my-block");
+const ac=new AbortController()
 
 const toggleColor = () => {
   myBlock.classList.toggle("my-block-blue");
 };
 
-toggleButton.addEventListener("click", toggleColor);
+toggleButton.addEventListener("click", toggleColor, {signal:ac.signal});
 
 setTimeout(() => {
   // alert("De acum nu mai poti schimba culoarea!");
-  toggleButton.removeEventListener("click", toggleColor);
+  // toggleButton.removeEventListener("click", toggleColor);
+  ac.abort()
+  toggleButton.setAttribute("disabled","")
+  // toggleButton.toggleAttribute("disabled")
 }, 3000);
 
 // Form Submit Login
